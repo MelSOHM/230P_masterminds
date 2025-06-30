@@ -397,27 +397,14 @@ class FinancialReturnPredictorXGBoost:
         if self.model is None:
             raise ValueError("No model to save. Train the model first.")
         
-        model_data = {
-            'model': self.model,
-            'scaler': self.scaler,
-            'feature_names': self.feature_names,
-            'label_encoders': self.label_encoders
-        }
-        
-        joblib.dump(model_data, filepath)
+        joblib.dump(self.model, filepath)
         print(f"Model saved to {filepath}")
     
     def load_model(self, filepath='model_xgboost.pkl'):
         """
         Load a trained model
         """
-        model_data = joblib.load(filepath)
-        
-        self.model = model_data['model']
-        self.scaler = model_data['scaler']
-        self.feature_names = model_data['feature_names']
-        self.label_encoders = model_data['label_encoders']
-        
+        self.model = joblib.load(filepath)
         print(f"Model loaded from {filepath}")
 
 def main():
